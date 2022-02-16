@@ -1,0 +1,16 @@
+{
+  "name": "fs-cicd",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "install": "cd client && npm install && cd ../server && npm install",
+    "test": "cd client && CI=true npm test && cd ../server && npm test",
+    "build": "cd client && npm run build",
+    "start": "node server/index.js",
+    "devClient": "cd client && npm run start",
+    "devServer": "cd server && npm run dev",
+    "lint": "cd client && npm run eslint && cd ../server && npm run lint"
+  },
+  "author": "",
+  "license": "ISC"
+}
