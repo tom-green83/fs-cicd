@@ -3,7 +3,7 @@ Cypress.Commands.add('login', ({ username, password }) => {
     username, password
   }).then(({ body }) => {
     localStorage.setItem('loggedInBlogUser', JSON.stringify(body))
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3003')
   })
 })
 
@@ -19,10 +19,10 @@ Cypress.Commands.add('addBlog', (blog) => {
   })
 
   // cy.request('POST', 'http://localhost:3003/api/blogs' , blog, authorisation)
-  cy.visit('http://localhost:3000')
+  cy.visit('http://localhost:3003')
 })
 
 Cypress.Commands.add('logout', () => {
   window.localStorage.removeItem('loggedInBlogUser')
-  cy.visit('http://localhost:3000')
+  cy.visit('http://localhost:3003')
 })
