@@ -132,11 +132,11 @@ describe('Blog app', function() {
         const finalLikes = [6, 5, 4]
         for (let i = 0; i <4; i++) {
           cy.get('.blog').contains(`${blog1Like.title} ${blog1Like.author}`).contains('like').click()
-          cy.wait(500)
+          cy.wait(2000)
         }
         for (let i = 0; i <4; i++) {
           cy.get('.blog').contains(`${blog2Like.title} ${blog2Like.author}`).contains('like').click()
-          cy.wait(500)
+          cy.wait(2000)
         }
         cy.get('.blog').contains(`${blog3Like.title} ${blog3Like.author}`).contains('like').click()
 
