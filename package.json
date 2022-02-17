@@ -10,7 +10,7 @@
     "lint": "cd client && npm run eslint && cd ../server && npm run lint",
     "devClient": "cd client && npm run start",
     "devServer": "cd server && npm run dev",
-    "testServer": "cd server && npm run start:test",
+    "start:test": "cd server && npm run start:test",
     "test:e2e": "cd client && npm run cypress:run"
   },
   "author": "",
