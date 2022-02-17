@@ -5,5 +5,4 @@
 
 # misc
 .env
-.eslintignore
 lodash_test.js
