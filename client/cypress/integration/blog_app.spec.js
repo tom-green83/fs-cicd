@@ -29,6 +29,8 @@ describe('Blog app', function() {
   const blog2Like = { title: '2', author: '2', url: '2', likes: 2 }
   const blog3Like = { title: '3', author: '3', url: '3', likes: 3 }
 
+  const clickDelay = 2500
+
 
   beforeEach(function() {
     cy.request('POST', 'http://localhost:3003/api/testing/reset')
@@ -132,11 +134,11 @@ describe('Blog app', function() {
         const finalLikes = [6, 5, 4]
         for (let i = 0; i <4; i++) {
           cy.get('.blog').contains(`${blog1Like.title} ${blog1Like.author}`).contains('like').click()
-          cy.wait(2000)
+          cy.wait(clickDelay)
         }
         for (let i = 0; i <4; i++) {
           cy.get('.blog').contains(`${blog2Like.title} ${blog2Like.author}`).contains('like').click()
-          cy.wait(2000)
+          cy.wait(clickDelay)
         }
         cy.get('.blog').contains(`${blog3Like.title} ${blog3Like.author}`).contains('like').click()
 
