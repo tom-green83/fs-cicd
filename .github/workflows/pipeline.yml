@@ -1,0 +1,86 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    env: 
+      MONGO_URI: ${{ secrets.MONGO_URI }} 
+      TEST_MONGO_URI: ${{secrets.TEST_MONGO_URI}}
+      PORT: ${{secrets.PORT}}
+      SECRET: ${{secrets.SECRET}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: npm install 
+        run: npm install  
+      - name: lint
+        run: |
+          npm run eslint
+      - name: test
+        run: |
+          npm run test
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e
+          start: npm run testServer & npm run devClient 
+          wait-on: http://localhost:3000
+      - name: build
+        run: |
+          npm run build
+  #     - name: run akhileshns/heroku-deploy@v3.12.12
+  #       if: github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip')
+  #       uses: akhileshns/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: "sheltered-mountain-75670"
+  #         heroku_email: "tom.green83@protonmail.com"
+  #         healthcheck: "https://sheltered-mountain-75670.herokuapp.com/health"
+  #         checkstring: "ok"
+  #         rollbackonhealthcheckfailed: true
+  #     - name: post job failure to slack
+  #       if: failure()
+  #       uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: ${{ job.status }}
+  #         fields: repo,message,commit,author,took
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #     - name: post job success to slack
+  #       if: success()
+  #       uses: 8398a7/action-slack@v3
+  #       with:
+  #         status: custom
+  #         fields: workflow,job,commit,repo,ref,author,took
+  #         custom_payload: |
+  #           {
+  #             attachments: [{
+  #               color: 'good',
+  #               text: `A new version deployed to https://sheltered-mountain-75670.herokuapp.com (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
+  #             }]
+  #           }
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
+
+  # version_update:
+  #   if: github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip')
+  #   runs-on: ubuntu-18.04
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Bump version and push tag      
+  #     uses: anothrNick/github-tag-action@1.33.0
+  #     env:
+  #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       DEFAULT_BUMP: patch
+
