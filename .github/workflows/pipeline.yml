@@ -25,8 +25,8 @@ jobs:
         run: npm install  
       - name: lint
         run: |
-          npm run eslint
-      - name: test
+          npm run lint
+      - name: unit tests
         run: |
           npm run test
       - name: e2e tests
