@@ -7,9 +7,10 @@
     "test": "cd client && CI=true npm test && cd ../server && npm test",
     "build": "cd client && npm run build",
     "start": "node server/index.js",
+    "lint": "cd client && npm run eslint && cd ../server && npm run lint",
     "devClient": "cd client && npm run start",
     "devServer": "cd server && npm run dev",
-    "lint": "cd client && npm run eslint && cd ../server && npm run lint"
+    "dev": "npm run devServer & npm run devClient"
   },
   "author": "",
   "license": "ISC"
