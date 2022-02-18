@@ -2,6 +2,9 @@
   "name": "fs-cicd",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "install": "cd client && npm install && cd ../server && npm install",
     "test": "cd client && CI=true npm test && cd ../server && npm test",
