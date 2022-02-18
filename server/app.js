@@ -22,6 +22,15 @@ app.use(cors())
 app.use(express.static('../client/build'))
 app.use(express.json())
 app.use(middleware.requestLogger)
+
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
+app.get('/version', (req, res) => {
+  res.send('1') // change this string to ensure a new version deployed
+})
+
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
