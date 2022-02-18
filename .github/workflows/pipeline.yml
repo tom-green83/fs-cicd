@@ -45,9 +45,9 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "lit-dawn-65335"
           heroku_email: "tom.green83@protonmail.com"
-          healthcheck: "https://lit-dawn-65335.herokuapp.com/health"
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
+          # healthcheck: "https://lit-dawn-65335.herokuapp.com/health"
+          # checkstring: "ok"
+          # rollbackonhealthcheckfailed: true
   #     - name: post job failure to slack
   #       if: failure()
   #       uses: 8398a7/action-slack@v3
