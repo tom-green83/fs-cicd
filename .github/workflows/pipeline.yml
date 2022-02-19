@@ -57,7 +57,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: post job success to slack
-        if: success()
+        if: github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') && success()
         uses: 8398a7/action-slack@v3
         with:
           status: custom
@@ -66,7 +66,7 @@ jobs:
             {
               attachments: [{
                 color: 'good',
-                text: `A new version deployed to https://lit-dawn-65335.herokuapp.com/health (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
+                text: `A new version deployed to https://lit-dawn-65335.herokuapp.com (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build took ${process.env.AS_TOOK}`,
               }]
             }
         env:
